@@ -1,0 +1,10 @@
+li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button.copyButton {
+    margin-left: 5px;
+}
