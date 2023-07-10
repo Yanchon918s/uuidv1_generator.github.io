@@ -39,9 +39,13 @@ document.getElementById('generateButton').addEventListener('click', function() {
     }
 
     const li = document.createElement('li');
-    li.textContent = uuid;
+    const span = document.createElement('span');
+    span.textContent = uuid;
+    li.appendChild(span);
+
     const copyButton = document.createElement('button');
     copyButton.textContent = 'Copy';
+    copyButton.classList.add('copyButton');
     copyButton.addEventListener('click', function() {
         copyToClipboard(uuid);
     });
@@ -50,7 +54,6 @@ document.getElementById('generateButton').addEventListener('click', function() {
     const uuidList = document.getElementById('uuidList');
     uuidList.insertBefore(li, uuidList.firstChild);
 
-    // 10個を超えた場合の処理
     if (uuidList.childElementCount > 10) {
         uuidList.removeChild(uuidList.lastChild);
     }
