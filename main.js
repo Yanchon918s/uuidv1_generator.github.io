@@ -20,6 +20,38 @@ function generateUUIDv1() {
     );
 }
 
+function copyToClipboard(text) {
+    const tempElem = document.createElement('textarea');
+    tempElem.value = text;
+    document.body.appendChild(tempElem);
+
+    tempElem.select();
+    document.execCommand('copy');
+
+    document.body.removeChild(tempElem);
+}
+
 document.getElementById('generateButton').addEventListener('click', function() {
-    document.getElementById('uuidOutput').textContent = generateUUIDv1();
+    const uuid = generateUUIDv1();
+
+    if (document.getElementById('copyCheckbox').checked) {
+        copyToClipboard(uuid);
+    }
+
+    const li = document.createElement('li');
+    li.textContent = uuid;
+    const copyButton = document.createElement('button');
+    copyButton.textContent = 'Copy';
+    copyButton.addEventListener('click', function() {
+        copyToClipboard(uuid);
+    });
+    li.appendChild(copyButton);
+
+    const uuidList = document.getElementById('uuidList');
+    uuidList.insertBefore(li, uuidList.firstChild);
+
+    // 10個を超えた場合の処理
+    if (uuidList.childElementCount > 10) {
+        uuidList.removeChild(uuidList.lastChild);
+    }
 });
